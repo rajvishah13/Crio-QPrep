@@ -1,12 +1,54 @@
-from crio.python.io import PrintMatrix
+# Python3 implementation of the approach 
+from collections import deque 
 
-# Implement your solution by completing the below function
-def letterCombinations(digits):
-    res = []
-    
-    return res
+# Function to return a list that contains 
+# all the generated letter combinations 
+def letterCombinationsUtil(number, n, table): 
 
-if __name__ == '__main__':
-    digits = input()
-    result = letterCombinations(digits)
-    PrintMatrix.OneDMatrix(result, " ")
+	list = [] 
+	q = deque() 
+	q.append("") 
+
+	while len(q) != 0: 
+		s = q.pop() 
+
+		# If complete word is generated 
+		# push it in the list 
+		if len(s) == n: 
+			list.append(s) 
+		else: 
+
+			# Try all possible letters for current digit 
+			# in number[] 
+			for letter in table[number[len(s)]]: 
+				q.append(s + letter) 
+
+	# Return the generated list 
+	return list
+
+
+# Function that creates the mapping and 
+# calls letterCombinationsUtil 
+def letterCombinations(number, n): 
+
+	# table[i] stores all characters that 
+	# corresponds to ith digit in phone 
+	table = ["", "", "abc", "def", "ghi", "jkl", 
+			"mno", "pqrs", "tuv", "wxyz"] 
+
+	list = letterCombinationsUtil(number, n, table) 
+
+	s = "" 
+	for word in list: 
+		s += word + " "
+
+	print(s) 
+	return
+
+
+# Driver program 
+number = []
+number = input("Enter the string: ") 
+n = len(number) 
+
+letterCombinations(number, n) 
